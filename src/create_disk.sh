@@ -209,7 +209,13 @@ case "$arch" in
         -n ${ROOTPN}:0:"${rootfs_size}" -c ${ROOTPN}:root -t ${ROOTPN}:0FC63DAF-8483-4772-8E79-3D69D8477DE4
         ;;
     riscv64)
-        # TODO riscv64
+        # need further verify
+        RESERVEDPN=1
+        sgdisk -Z "$disk" \
+        -U "${uninitialized_gpt_uuid}" \
+        -n ${RESERVEDPN}:0:+1M -c ${RESERVEDPN}:reserved -t ${RESERVEDPN}:8DA63339-0007-60C0-C436-083AC8230908 \
+        -n ${BOOTPN}:0:+384M -c ${BOOTPN}:boot \
+        -n ${ROOTPN}:0:"${rootfs_size}" -c ${ROOTPN}:root -t ${ROOTPN}:0FC63DAF-8483-4772-8E79-3D69D8477DE4
     ;;
 esac
 
