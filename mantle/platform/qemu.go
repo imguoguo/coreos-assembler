@@ -1304,6 +1304,11 @@ func baseQemuArgs(arch string) ([]string, error) {
 			// https://qemu.readthedocs.io/en/latest/system/ppc/pseries.html#switching-between-the-kvm-pr-and-kvm-hv-kernel-module
 			"-machine", "pseries,kvm-type=HV," + accel,
 		}
+	case "riscv64":
+		ret = []string{
+			"qemu-system-riscv64",
+			"-machine", "virt," + accel, // What is accel?
+		}
 	default:
 		return nil, fmt.Errorf("architecture %s not supported for qemu", arch)
 	}
@@ -1491,6 +1496,7 @@ func (builder *QemuBuilder) setupIso() error {
 			return errors.New("cannot attach ISO as disk; no hybrid ISO on this arch")
 		}
 		builder.Append("-drive", "file="+builder.iso.path+",id=installiso,index=2,media=cdrom")
+		// RISC-V?
 	default:
 		bootindexStr := ""
 		if builder.iso.bootindex != "" {

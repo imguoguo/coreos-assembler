@@ -48,6 +48,8 @@ install_rpms() {
         x86_64) frozendeps=$(echo grub2-{common,tools,tools-extra,tools-minimal,efi-x64,pc,pc-modules}-1:2.06-76.fc38);;
         aarch64) frozendeps=$(echo grub2-{common,tools,tools-extra,tools-minimal,efi-aa64}-1:2.06-76.fc38);;
         ppc64le) frozendeps=$(echo grub2-{common,tools,tools-extra,tools-minimal,ppc64le,ppc64le-modules}-1:2.06-76.fc38);;
+        # riscv64) frozendeps=$(echo grub2-{common,tools,tools-extra,tools-minimal,riscv64,riscv64-modules}-1:2.06-76.fc38);; # Unverified
+        # 好像riscv64并不需要GRUB？
         *) ;;
     esac
 
@@ -105,6 +107,7 @@ install_rpms() {
 install_ocp_tools() {
     # If $OCP_VERSION is defined we'll grab that specific version.
     # Otherwise we'll get the latest.
+    # Maybe we should change the mirror here?
     local url="https://mirror.openshift.com/pub/openshift-v4/${arch}/clients/ocp/latest${OCP_VERSION:+-$OCP_VERSION}/openshift-client-linux.tar.gz"
     curl -L "$url" | tar zxf - oc
     mv oc /usr/bin

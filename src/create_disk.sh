@@ -208,6 +208,9 @@ case "$arch" in
         -n ${BOOTPN}:0:+384M -c ${BOOTPN}:boot \
         -n ${ROOTPN}:0:"${rootfs_size}" -c ${ROOTPN}:root -t ${ROOTPN}:0FC63DAF-8483-4772-8E79-3D69D8477DE4
         ;;
+    riscv64)
+        # TODO riscv64
+    ;;
 esac
 
 sgdisk -p "$disk"
@@ -509,6 +512,9 @@ s390x)
         rdcore_zipl_args+=("--secex-mode=disable")
         chroot_run /usr/lib/dracut/modules.d/50rdcore/rdcore zipl "${rdcore_zipl_args[@]}"
     fi
+    ;;
+riscv64)
+    # TODO riscv64
     ;;
 esac
 

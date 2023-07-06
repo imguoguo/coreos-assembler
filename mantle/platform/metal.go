@@ -51,6 +51,7 @@ var (
 		"ppc64le": "hvc0",
 		"aarch64": "ttyAMA0",
 		"s390x":   "ttysclp0",
+		"riscv64": "hvc0", // TODO: RISC-V
 	}
 
 	bootStartedUnit = fmt.Sprintf(`[Unit]
@@ -310,6 +311,8 @@ func (inst *Install) setup(kern *kernelSetup) (*installerRun, error) {
 		pxe.networkdevice = "virtio-net-ccw"
 		pxe.tftpipaddr = "10.0.2.2"
 		pxe.bootindex = "1"
+	case "riscv64": 
+		// TODO RISCV
 	default:
 		return nil, fmt.Errorf("Unsupported arch %s" + coreosarch.CurrentRpmArch())
 	}

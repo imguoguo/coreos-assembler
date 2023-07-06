@@ -12,7 +12,7 @@ PYIGNORE ?= E128,E241,E402,E501,E722,W503,W504
 .PHONY: all check shellcheck flake8 pycheck unittest clean mantle mantle-check install
 
 MANTLE_BINARIES := ore kola plume
-KOLET_ARCHES := aarch64 ppc64le s390x x86_64
+KOLET_ARCHES := aarch64 ppc64le s390x x86_64 riscv64
 
 all: bin/coreos-assembler mantle
 

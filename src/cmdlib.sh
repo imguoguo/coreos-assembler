@@ -41,6 +41,7 @@ case $arch in
     "ppc64le") DEFAULT_TERMINAL="hvc0"           ;;
     "aarch64") DEFAULT_TERMINAL="ttyAMA0"        ;;
     "s390x")   DEFAULT_TERMINAL="ttysclp0"       ;;
+    "riscv64") DEFAULT_TERMINAL="ttyS0"          ;;
     *)         fatal "Architecture ${arch} not supported"
 esac
 export DEFAULT_TERMINAL

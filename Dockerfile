@@ -1,6 +1,7 @@
 # When rebasing to new Fedora, also update openshift/release:
 # https://github.com/openshift/release/tree/master/ci-operator/config/coreos/coreos-assembler/coreos-coreos-assembler-main.yaml
-FROM registry.fedoraproject.org/fedora:38
+FROM imbearchild/fedora-rv64:latest
+
 WORKDIR /root/containerbuild
 
 # Keep this Dockerfile idempotent for local development rebuild use cases.
