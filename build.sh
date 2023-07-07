@@ -58,10 +58,10 @@ install_rpms() {
     # First, a general update; this is best practice.  We also hit an issue recently
     # where qemu implicitly depended on an updated libusbx but didn't have a versioned
     # requires https://bugzilla.redhat.com/show_bug.cgi?id=1625641
-    dnf -y distro-sync
+    dnf5 -y distro-sync
 
     # xargs is part of findutils, which may not be installed
-    dnf -y install /usr/bin/xargs
+    dnf5 -y install /usr/bin/xargs
 
     # These are only used to build things in here.  Today
     # we ship these in the container too to make it easier
@@ -71,11 +71,11 @@ install_rpms() {
     builddeps=$(grep -v '^#' "${srcdir}"/src/build-deps.txt)
 
     # Process our base dependencies + build dependencies and install
-    (echo "${builddeps}" && echo "${frozendeps}" && "${srcdir}"/src/print-dependencies.sh) | xargs dnf -y install
+    (echo "${builddeps}" && echo "${frozendeps}" && "${srcdir}"/src/print-dependencies.sh) | xargs dnf5 -y install
 
     # Add fast-tracked packages here.  We don't want to wait on bodhi for rpm-ostree
     # as we want to enable fast iteration there.
-    dnf -y --enablerepo=updates-testing upgrade rpm-ostree
+    dnf5 -y --enablerepo=updates-testing upgrade rpm-ostree
 
     # Delete file that only exists on ppc64le because it is causing
     # sudo to not work.
@@ -86,7 +86,7 @@ install_rpms() {
     #dnf remove -y ${builddeps}
     # can't remove grubby on el7 because libguestfs-tools depends on it
     # Add --exclude for s390utils-base because we need it to not get removed.
-    rpm -q grubby && dnf remove --exclude=s390utils-base -y grubby
+    rpm -q grubby && dnf5 remove --exclude=s390utils-base -y grubby
 
     # Allow Kerberos Auth to work from a keytab. The keyring is not
     # available in a Container.
@@ -100,7 +100,7 @@ install_rpms() {
     # Similarly for kernel data and SELinux policy, which we want to inject into supermin
     chmod -R a+rX /usr/lib/modules /usr/share/selinux/targeted
     # Further cleanup
-    dnf clean all
+    dnf5 clean all
 }
 
 # For now, we ship `oc` in coreos-assembler as {Fedora,RHEL} CoreOS is an essential part of OCP4,
