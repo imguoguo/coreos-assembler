@@ -36,7 +36,7 @@ configure_yum_repos() {
     # builds.
     # Maybe need to change the mirror here?
     # echo -e "[f${version_id}-coreos-continuous]\nenabled=1\nmetadata_expire=1m\nbaseurl=https://kojipkgs.fedoraproject.org/repos-dist/f${version_id}-coreos-continuous/latest/\$basearch/\ngpgcheck=0\nskip_if_unavailable=False\n" > /etc/yum.repos.d/coreos.repo
-    echo -e "[fedora-riscv-koji]\nname=Fedora RISC-V Koji\nbaseurl=https://openkoji.iscas.ac.cn/kojifiles/repos/f38-build-side-42-init-devel/latest/riscv64/\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/fedora-riscv-koji.repo
+    echo -e "[fedora-riscv-koji]\nname=Fedora RISC-V Koji\nbaseurl=http://openkoji.iscas.ac.cn/kojifiles/repos/f38-build-side-42-init-devel/latest/riscv64/\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/fedora-riscv-koji.repo
 }
 
 install_rpms() {
